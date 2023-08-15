@@ -8,11 +8,11 @@ import time
 from main import add,print_base, authentification, delete_user, delete_task
 import webview as wv
 def get_current_url(window):
-    print('Вообще говоря, я натурал')
-    time.sleep(10)
+    sg.PopupError('Не закрывайте окно после авторизации до надписи "ID записан"')
+    time.sleep(30)
     global string
-    string =  (window.get_current_url())
-    print('URL записан')
+    string = (window.get_current_url())
+    sg.PopupError('URL записан')
     
 
 def UI_print(User_ID : int, all_users : bool ) : 
@@ -84,9 +84,9 @@ while True :
             id_token+= string[-i] 
             i-= 1
         print(id_token)
-        User_ID = authentification(id_token, '', True )
+        User_ID = authentification(id_token, 'lksj5dfwe1234iojf', True )
         if User_ID == -1 : 
-            User_ID = authentification(id_token, '', False )
+            User_ID = authentification(id_token, 'lksj5dfwe1234iojf', False )
             if (User_ID == -2 ) : 
                 sg.PopupError('Логин/пароль не подходят')
             elif (User_ID[0] > -1 ) : 
