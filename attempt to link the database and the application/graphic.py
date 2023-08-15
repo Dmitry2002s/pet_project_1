@@ -1,7 +1,19 @@
 ﻿
 import PySimpleGUI as sg 
 import random
+import webbrowser
+import requests 
+import time
+
 from main import add,print_base, authentification, delete_user, delete_task
+import webview as wv
+def get_current_url(window):
+    print('Вообще говоря, я натурал')
+    time.sleep(10)
+    global string
+    string =  (window.get_current_url())
+    print('URL записан')
+    
 
 def UI_print(User_ID : int, all_users : bool ) : 
     text = str()
@@ -14,17 +26,18 @@ def UI_print(User_ID : int, all_users : bool ) :
         sg.PopupScrolled('Список задач пуст!')
 
 
-start_layout = [ [sg.Button('Аутентификация', enable_events=True, key = '-authentification-', font = 'Helvetica 16')], 
+start_layout = [ [sg.Button('Аутентификация', enable_events=True, key = '-authentification-', font = 'Helvetica 16')],
+                [sg.Button('Аутентификация через ВК', enable_events=True, key = '-vk_authentification-', font = 'helvetica16')],
                 [sg.Button('Регистрация', enable_events=True, key = '-registration-', font = 'Helvetica 16')] ] 
 
 layout = [[sg.Button('Добавить задачу',enable_events=True, key='-add_task-', font='Helvetica 16')],
-          [sg.Button('Отобразить базу данных',enable_events=True, key='-print-', font='Helvetica 16')], 
+          [sg.Button('Отобразить базу мои задачи',enable_events=True, key='-print-', font='Helvetica 16')], 
         # затем делаем текст
-        [sg.Text('Результат:', size=(25, 1), key='-text-', font='Helvetica 16')]]
+        ]
 
 admin_layout = [ 
                [sg.Button('Добавить задачу',enable_events=True, key='-add_task-', font='Helvetica 16')],
-               [sg.Button('Отобразить базу данных своих задач',enable_events=True, key='-print-', font='Helvetica 16')],
+               [sg.Button('Отобразить базу мои задачи',enable_events=True, key='-print-', font='Helvetica 16')],
                [sg.Button('Отобразить базу данных всех задач',enable_events=True, key='-print_admin-', font='Helvetica 16')],
                [sg.Button('Удалить пользователя по ID', enable_events = True, key = '-delete_user-', font = 'Helvetca 16')],
                [sg.Button('Удалить задачу по ID', enable_events = True, key = '-delete_task-', font = 'Helvetca 16')]
@@ -55,6 +68,34 @@ while True :
             Admin = User_ID[1] 
             User_ID = User_ID[0]
             break 
+    elif event == '-vk_authentification-' : 
+        #print(webbrowser.open('https://oauth.vk.com/authorize?client_id=51727595&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.131&state=asihiohoih', 1) ) 
+        k = 0 
+        local_window = wv.create_window('После авторизации закройте окно!', 'https://oauth.vk.com/authorize?client_id=51727595&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.131&scope=offline')
+        string = 'я пустой'
+        wv.start(get_current_url, local_window)
+        print(string)
+        for i in range(0,len(string)) : 
+            if string[-i] == '=' : 
+                i-=1 
+                break 
+        id_token = '' 
+        while (i > 0 )  : 
+            id_token+= string[-i] 
+            i-= 1
+        print(id_token)
+        User_ID = authentification(id_token, '', True )
+        if User_ID == -1 : 
+            User_ID = authentification(id_token, '', False )
+            if (User_ID == -2 ) : 
+                sg.PopupError('Логин/пароль не подходят')
+            elif (User_ID[0] > -1 ) : 
+                sg.PopupError('Авторизация успешна')
+                Admin = User_ID[1] 
+                User_ID = User_ID[0]
+        break 
+        
+
     elif event == '-registration-' : 
         nick = sg.PopupGetText('Введите логин создаваемого пользователя  ')
         password  = sg.PopupGetText('Введите пароль создаваемого пользователя')
@@ -95,7 +136,10 @@ else :
             delete_user(sg.PopupGetText('Введите номер удаляемого пользователя'))
         elif event in (sg.WIN_CLOSED, 'Exit'):
             # выходим из цикла
-            break
+            break 
+
+
+
 
 # закрываем окно и освобождаем используемые ресурсы
 window.close()
