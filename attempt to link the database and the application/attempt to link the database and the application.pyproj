@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>39f0e31f-bb79-45ff-8275-66b7c5b18090</ProjectGuid>
+    <ProjectGuid>8c704972-62d5-4820-b564-8504577308a8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>graphic.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>First_android_app</Name>
-    <RootNamespace>First_android_app</RootNamespace>
+    <Name>attempt to link the database and the application</Name>
+    <RootNamespace>attempt to link the database and the application</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,11 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="First_android_app.py" />
+    <Compile Include="config.py" />
     <Compile Include="main.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Task_manager.kv" />
+    <Compile Include="graphic.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
