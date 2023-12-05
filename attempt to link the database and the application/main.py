@@ -66,6 +66,8 @@ def print_base(user_ID : int , all : bool) :
     except Exception as ex : 
         print("connection refused...")
         print("connection ex")
+
+
 def authentification(nickname : str, user_password : str , registration : bool ) : #- отрицательный номер - в случае ошибки, положительный номер - ИД пользователя 
     try : 
         connection  = pymysql.connect( 
@@ -115,6 +117,8 @@ def authentification(nickname : str, user_password : str , registration : bool )
     except Exception as ex : 
             print ("connecion refused ") 
             print ("connceion ex") 
+
+
 def delete_user(User_ID) : 
     try : 
         connection  = pymysql.connect( 
@@ -140,6 +144,7 @@ def delete_user(User_ID) :
     except Exception as ex : 
         print("connection refused...")
         print("connection ex")
+
 
 def delete_task(delete_Task_ID) : 
     try : 

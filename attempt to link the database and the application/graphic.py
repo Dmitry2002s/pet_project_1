@@ -7,6 +7,7 @@ import time
 
 from main import add,print_base, authentification, delete_user, delete_task
 import webview as wv
+
 def get_current_url(window):
     sg.PopupError('Не закрывайте окно после авторизации до надписи "ID записан"')
     time.sleep(30)
@@ -42,9 +43,6 @@ admin_layout = [
                [sg.Button('Удалить пользователя по ID', enable_events = True, key = '-delete_user-', font = 'Helvetca 16')],
                [sg.Button('Удалить задачу по ID', enable_events = True, key = '-delete_task-', font = 'Helvetca 16')]
 ]
-
-
-
 
 # рисуем окно
 window = sg.Window('Task-manager', layout, size=(500,200))
@@ -106,6 +104,8 @@ while True :
     elif event in (sg.WIN_CLOSED, 'Exit'): # Выходим из цикла 
         Login_succes = False 
         break
+
+
 if Admin == False : 
     while Login_succes : 
         event, values = window.read()
