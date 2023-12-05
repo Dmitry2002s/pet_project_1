@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Папка с First_android_app не содержит осмысленный код. 
+
 В папке attempt to link the database and the application. 
 Приложение обладает следующим функционалом : 
 
